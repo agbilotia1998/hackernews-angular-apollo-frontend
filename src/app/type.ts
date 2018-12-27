@@ -4,3 +4,12 @@ export class Link {
   url: string;
   createdAt: string;
 }
+
+export class User {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  email: string;
+  password: string;
+}
+
