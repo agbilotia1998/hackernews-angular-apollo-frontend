@@ -11,7 +11,7 @@ export class AuthService {
   constructor() {
   }
 
-  get isAuthenticated(): Observable {
+  get isAuthenticated(): Observable<boolean> {
     return this._isAuthenticated.asObservable();
   }
 

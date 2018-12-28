@@ -157,8 +157,8 @@ export interface SignInMutationResponse {
   };
 }
 
-export interface AllLinkQueryResponse {
-  allLinks: Link[];
+export interface AllLinksQueryResponse {
+  links: Link[];
   loading: boolean;
 }
 
