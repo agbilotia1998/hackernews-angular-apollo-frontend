@@ -13,3 +13,9 @@ export class User {
   password: string;
 }
 
+
+export class Vote {
+  id: string;
+  user: User;
+  link: Link;
+}

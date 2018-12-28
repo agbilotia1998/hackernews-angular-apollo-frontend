@@ -2,11 +2,21 @@ import { Link, User } from './type';
 import gql from 'graphql-tag';
 
 export const ALL_LINKS_QUERY = gql`
-  query AllLinks{
-    links{
+  query AllLinks($first: Int, $skip: Int, $orderBy: LinkOrderByInput){
+    links(first: $first, skip: $skip, orderBy: $orderBy){
       id
       description
       url
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
     }
   }
 `;
@@ -51,6 +61,85 @@ export const SIGNIN_USER_MUTATION = gql`
     }
   }
 `;
+
+export const NEW_LINKS_SUBSCRIPTION = gql`
+  subscription {
+    newLink{
+      id
+      url
+      description
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export const CREATE_VOTE_MUTATION = gql`
+  mutation CreateVoteMutation($linkId: ID!) {
+    vote(linkId: $linkId) {
+      id
+      link {
+        votes {
+          id
+          user {
+            id
+          }
+        }
+      }
+      user {
+        id
+      }
+    }
+  }
+`;
+
+export const ALL_LINKS_SEARCH_QUERY = gql`
+  query AllLinksSearchQuery($searchText: String!) {
+    links(filter: 
+      $searchText
+    ) {
+      id
+      url
+      description
+      postedBy {
+        id
+        name
+      }
+      votes {
+        id
+        user {
+          id
+        }
+      }
+    }
+  }
+`;
+
+export interface AllLinksSearchQueryResponse {
+  loading: boolean;
+  allLinks: Link[];
+}
+
+export interface CreateVoteMutationResponse {
+  loading: boolean;
+  createVote: {
+    id: string;
+    link: Link;
+    user: User;
+  };
+}
+
+export interface NewLinkSubcriptionResponse {
+  newLink: Link;
+}
 
 export interface CreateUserMutationResponse {
   loading: boolean;

@@ -5,6 +5,9 @@ import {HttpLink, HttpLinkModule} from 'apollo-angular-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
 import {GC_AUTH_TOKEN} from "./constants";
 import {ApolloLink} from 'apollo-link';
+import {WebSocketLink} from 'apollo-link-ws';
+import {getOperationAST} from '../../node_modules/graphql';
+import {SubscriptionClient} from "subscriptions-transport-ws";
 
 @NgModule({
   exports: [
@@ -32,5 +35,29 @@ export class GraphQLModule {
       link: middleware.concat(http),
       cache: new InMemoryCache()
     });
+    // const token = localStorage.getItem(GC_AUTH_TOKEN);
+    // const authorization = token ? `Bearer ${token}` : null;
+    // const headers = new HttpHeaders();
+    // headers.append('Authorization', authorization);
+    // const http = httpLink.create({ uri, headers });
+    //
+    // const ws = new WebSocketLink(new SubscriptionClient('http://localhost:4000', {
+    //   reconnect: true,
+    //   connectionParams: {
+    //     authToken: localStorage.getItem(GC_AUTH_TOKEN)
+    //   }
+    // }));
+    //
+    // apollo.create({
+    //   link: ApolloLink.split(
+    //     operation => {
+    //       const operationAST = getOperationAST(operation.query, operation.operationName);
+    //       return !!operationAST && operationAST.operation === 'subscription';
+    //     },
+    //     ws,
+    //     http,
+    //   ),
+    //   cache: new InMemoryCache()
+    // });
   }
 }

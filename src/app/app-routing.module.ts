@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LinkListComponent } from "./link-list/link-list.component";
 import { CreateLinkComponent } from "./create-link/create-link.component";
 import { LoginComponent } from "./login/login.component";
+import {SearchComponent} from "./search/search.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
     pathMatch: 'full'
   },
   {
